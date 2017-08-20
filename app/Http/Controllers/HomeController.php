@@ -2,20 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index()
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        return "Good Morning";
+        $this->middleware('auth');
     }
 
-    public function help()
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        //return 'hello world!';
-        return json_decode(json_encode(url(__DIR__)), true);
+        return view('home');
     }
 }
