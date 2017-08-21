@@ -37,6 +37,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
+        // 将返回的guest的中间件注册入controller中
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 

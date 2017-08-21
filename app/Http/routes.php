@@ -41,12 +41,31 @@ Route::get('test', 'HomeController@index');*/
     'password' => 'Auth\PasswordController'
 ]);*/
 
-/*Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', function () {
-        redirect('/');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', function ()    {
+        // 该路由将使用 Auth 中间件
     });
-    Route::get('/home', 'HomeController@index');
-});*/
+
+    Route::get('/home', function () {
+        // 该路由也将使用 Auth 中间件
+        return 'hello world';
+    });
+});
+
+Route::get('login', function () {
+    return 'bye';
+});
+
+// 给应用注册特定路由：认证，注册，密码重置
+/*
+ * TODO 调用顺序/时机
+ * redirect()->guest('login') 触发
+ * redirect()->guest('register') 触发
+ * 该值去路由表中查找auth路由
+ * 并将该值作为参数，重定向login或者register
+ *
+ * Route::auth()作为一个路由入口，进行转发
+ */
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
+//Route::get('/home', 'HomeController@index');
