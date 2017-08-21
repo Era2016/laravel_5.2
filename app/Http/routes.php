@@ -50,8 +50,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index');
 });
 
-Route::get('login', function () {
-    return 'bye';
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+    Route::get('/', 'AdminHomeController@index');
+    Route::resource('pages', 'PagesController');
 });
 
 // 给应用注册特定路由：认证，注册，密码重置
