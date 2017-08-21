@@ -42,14 +42,12 @@ Route::get('test', 'HomeController@index');*/
 ]);*/
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', function ()    {
+    Route::get('/', function () {
         // 该路由将使用 Auth 中间件
-    });
-
-    Route::get('/home', function () {
-        // 该路由也将使用 Auth 中间件
         return 'hello world';
     });
+
+    Route::get('/home', 'HomeController@index');
 });
 
 Route::get('login', function () {
