@@ -51,7 +51,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
-    Route::get('/', 'AdminHomeController@index');
+    //Route::get('/', 'AdminHomeController@index');
     Route::resource('pages', 'PagesController');
 });
 
