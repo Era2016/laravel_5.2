@@ -68,7 +68,7 @@ class PagesController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('admin.pages.show')->withPage(Page::find($id));
     }
 
     /**

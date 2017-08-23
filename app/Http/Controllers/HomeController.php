@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use App\Model\Page;
 
 class HomeController extends Controller
 {
@@ -24,7 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        //return view('adminHome')->withPages(Page::all());
+        return view('home')->withPages(Page::all());
         //return view('welcome');
     }
 }

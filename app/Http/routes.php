@@ -36,24 +36,40 @@ Route::get('help', function () {
 Route::get('test/help', 'HomeController@help');
 Route::get('test', 'HomeController@index');*/
 
+// 作用？
 /*Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController'
 ]);*/
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', function () {
+    /*Route::get('/', function () {
         // 该路由将使用 Auth 中间件
         return 'hello world';
-    });
+    });*/
 
+    Route::get('/', 'HomeController@index');
     Route::get('/home', 'HomeController@index');
 });
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'], function () {
     //Route::get('/', 'AdminHomeController@index');
+    //Route::get('pages/{id}', 'PagesController@show');
     Route::resource('pages', 'PagesController');
+    Route::resource('comments', 'CommentsController');
 });
+
+Route::get('auth/login', 'Auth/AuthController@getLogin');
+Route::get('auth/login', 'Auth/AuthController@postLogin');
+Route::get('auth/logout', 'Auth/AuthController@getLogout');
+
+
+// 斜杠方向有区别
+//Route::get('pages/{id}', 'Admin/PagesController@show');
+Route::get('pages/{id}', 'Admin\PagesController@show');
+
+Route::post('comments/store', 'CommentsController@store');
+
 
 // 给应用注册特定路由：认证，注册，密码重置
 /*
