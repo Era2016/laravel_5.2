@@ -12,4 +12,6 @@ class Page extends Model
     {
         return $this->hasMany('App\Model\Comment', 'page_id', 'id');
     }
+
+    
 }

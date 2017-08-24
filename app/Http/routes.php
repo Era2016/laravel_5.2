@@ -55,14 +55,16 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth'], function () {
     //Route::get('/', 'AdminHomeController@index');
     //Route::get('pages/{id}', 'PagesController@show');
+    Route::get('/', 'AdminHomeController@index');
     Route::resource('pages', 'PagesController');
     Route::resource('comments', 'CommentsController');
 });
 
-Route::get('auth/login', 'Auth/AuthController@getLogin');
-Route::get('auth/login', 'Auth/AuthController@postLogin');
-Route::get('auth/logout', 'Auth/AuthController@getLogout');
-
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('auth/login', 'Auth\AuthController@getLogin');
+    Route::get('auth/login', 'Auth\AuthController@postLogin');
+    Route::get('auth/logout', 'Auth\AuthController@getLogout');
+});
 
 // 斜杠方向有区别
 //Route::get('pages/{id}', 'Admin/PagesController@show');
