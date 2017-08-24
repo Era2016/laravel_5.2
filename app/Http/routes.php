@@ -41,12 +41,12 @@ Route::get('test', 'HomeController@index');*/
     'password' => 'Auth\PasswordController'
 ]);*/
 
-/*Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/', function () {
-        redirect('/');
+        return view('welcome');
     });
     Route::get('/home', 'HomeController@index');
-});*/
+});
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
