@@ -30,9 +30,9 @@ class ShowController extends Controller
         $user = auth()->user();
         //var_dump($user);
         $userId = $user->getAuthIdentifier();
-        $arrRoles = Role::getRoles($userId);
+        $arrRoles = Role::getRoles([$userId]);
         //var_dump($arrRoles);
-        $roleIds = array_column($arrRoles, 'id');
+        $roleIds = array_column($arrRoles, 'role_id');
         $arrPermissions = Permission::getPermissions($roleIds);
         return ['errno' => 200, 'msg' => 'ok', 'data' => $arrPermissions];
     }

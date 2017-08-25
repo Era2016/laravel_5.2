@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::group(['prefix' => 'rbac','namespace' => 'Rbac', 'middleware' => 'auth'], function () {
     Route::get('show', 'ShowController@getAuthList');
+    Route::get('user', 'UserController@getList');
     /*Route::get('show', function () {
         return view('welcome');
     });*/

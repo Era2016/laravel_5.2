@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -23,4 +24,17 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public static function getUsers($userId = null)
+    {
+        $result = DB::table('users')
+            ->leftJoin('t_user_role', 't_user_role.user_id', '=', 'users.id')
+            ->select('users.id', 'users.name', 't_user_role.role_id');
+        if ($userId) {
+            $result->where('users.id', '=', $userId);
+        }
+        $result = $result->get();
+
+        return $result;
+    }
 }
