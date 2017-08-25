@@ -47,6 +47,13 @@ Route::group(['middleware' => 'auth'], function () {
     });
     Route::get('/home', 'HomeController@index');
 });
+
+Route::group(['prefix' => 'rbac','namespace' => 'Rbac', 'middleware' => 'auth'], function () {
+    Route::get('show', 'ShowController@getAuthList');
+    /*Route::get('show', function () {
+        return view('welcome');
+    });*/
+});
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
