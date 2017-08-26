@@ -38,4 +38,20 @@ class Role extends Model
             ->get();
         return $result;
     }
+
+    /**
+     * 验证角色有效性
+     * @param $roleId
+     * @return bool
+     */
+    public static function validateRole($roleId)
+    {
+        $result = DB::table('t_role')
+            ->where('id', $roleId)
+            ->first();
+        if (empty($result)) {
+            return false;
+        }
+        return true;
+    }
 }

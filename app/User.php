@@ -37,4 +37,20 @@ class User extends Authenticatable
 
         return $result;
     }
+
+    /**
+     * 验证用户ID的有效性
+     * @param $userId
+     * @return bool
+     */
+    public static function validateUser($userId)
+    {
+        $result = DB::table('users')
+            ->where('id', $userId)
+            ->first();
+        if (empty($result)) {
+            return false;
+        }
+        return true;
+    }
 }

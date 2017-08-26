@@ -44,4 +44,21 @@ class Permission extends Model
         }
         return $ret;
     }
+
+    /**
+     * 验证权限有效性
+     * @param $permissionId
+     * @return bool
+     */
+    public static function validatePermission($permissionId)
+    {
+        $result = DB::table('t_permission')
+            ->where('id', $permissionId)
+            ->first();
+
+        if (empty($result)) {
+            return false;
+        }
+        return true;
+    }
 }
