@@ -50,10 +50,12 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::group(['prefix' => 'rbac','namespace' => 'Rbac', 'middleware' => 'auth'], function () {
     Route::get('show', 'ShowController@getAuthList');
-    Route::get('user', 'UserController@getList');
-    /*Route::get('show', function () {
-        return view('welcome');
-    });*/
+    Route::get('user/get-list', 'UserController@getList');
+    Route::post('user/assign-role', 'UserController@assignRole');
+    Route::post('user/un-assign-role', 'UserController@unAssignRole');
+    Route::any('user/rbac-test', function () {
+        return 'Access pass!';
+    });
 });
 Route::auth();
 

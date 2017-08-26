@@ -24,7 +24,7 @@ class Permission extends Model
         $result = DB::table('t_permission')
             ->leftJoin('t_role_permission', 't_role_permission.permission_id', '=', 't_permission.id')
             ->whereIn('t_role_permission.role_id', $roleIds)
-            ->select('t_permission.id as permission_id','t_permission.title', 't_role_permission.role_id')
+            ->select('t_permission.id as permission_id','t_permission.title', 't_permission.description', 't_role_permission.role_id')
             ->get();
 
         $log = DB::getQueryLog();
@@ -39,7 +39,8 @@ class Permission extends Model
         $ret = [];
         foreach ($result as $item => $value) {
             $roleId = $value->role_id;
-            $ret[$roleId][] = $value;
+            $permissionId = $value->permission_id;
+            $ret[$roleId][$permissionId] = $value;
         }
         return $ret;
     }

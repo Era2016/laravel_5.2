@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Model\Common;
+use App\Model\Role;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,6 +27,18 @@ class Authenticate
             }
         }
 
-        return $next($request);
+        // TODO 权限验证
+        $userId = \auth()->user()->getAuthIdentifier();
+        $userPermissions = Common::getPermissionsByUser($userId);
+        $permissions = array_column($userPermissions, 'description');
+
+        $path = $request->path();
+        if (in_array($path, $permissions)) {
+            return $next($request);
+        } else {
+            //return redirect()->back()->withInput();
+            return response('Access Forbidden', 403);
+        }
+        //return $next($request);
     }
 }
