@@ -28,6 +28,7 @@ class Authenticate
         }
 
         // TODO 权限验证
+        // TODO 可通过放入redis来减少数据库的查询
         $userId = \auth()->user()->getAuthIdentifier();
         $userPermissions = Common::getPermissionsByUser($userId);
         $permissions = array_column($userPermissions, 'description');

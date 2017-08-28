@@ -28,14 +28,18 @@ class Role extends Model
      * @param array $userIds
      * @return mixed
      */
-    public static function getRoles(array $userIds)
+    public static function getRoles(array $userIds=[])
     {
-        // TODO get返回的是object ！！
+        // WTF! get返回的是object ！！
         $result = DB::table('t_role')
             ->leftJoin('t_user_role', 't_role.id', '=', 't_user_role.role_id')
-            ->whereIn('t_user_role.user_id', $userIds)
-            ->select('t_role.id as role_id','t_role.title', 't_user_role.user_id')
-            ->get();
+            ->select('t_role.id as role_id','t_role.title', 't_role.description', 't_user_role.user_id');
+
+        if (!empty($userIds)) {
+            $result = $result->whereIn('t_user_role.user_id', $userIds);
+        }
+
+        $result = $result->get();
         return $result;
     }
 

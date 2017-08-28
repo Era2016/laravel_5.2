@@ -55,6 +55,11 @@ Route::group(['prefix' => 'rbac','namespace' => 'Rbac', 'middleware' => 'auth'],
     Route::post('user/assign-role', 'UserController@assignRole');
     Route::post('user/un-assign-role', 'UserController@unAssignRole');
 
+    Route::post('role/add', 'RoleController@add');
+    Route::post('role/edit', 'RoleController@edit');
+    Route::post('role/delete', 'RoleController@delete');
+    Route::post('role/assign-role', 'RoleController@assignPermission');
+    Route::post('role/un-assign-role', 'RoleController@unAssignPermission');
 
 
     Route::any('user/rbac-test', function () {
